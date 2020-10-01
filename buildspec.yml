@@ -3,7 +3,6 @@ version: 0.2
 phases:
   build:
     - echo Building...
-    - make test
     - make
 artifacts:
   files: 
