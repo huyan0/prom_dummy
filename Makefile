@@ -4,24 +4,24 @@
 
  PACKAGES=$(go list ./... | grep -v /vendor.)
  VETPACKAGES=$(go list ./... | grep -v /vendor/ | grep -v /examples/)
- GOFILES=$(find . -name "*.go" -type f -not -path "./vendor/*") 
+ GOFILES=$(shell find . -name "*.go" -type f -not -path "./vendor/*")
 
- default:
+ default: vet fmt fmt-check test
 	@go build -o $(BINARY) -tags=jsoniter
 
 list: 
-	@echo $(PACKAGES)
-	@echo $(VETPACKAGES)
-	@echo $(GOFILES)
+	@echo ${PACKAGES}
+	@echo ${VETPACKAGES}
+	@echo ${GOFILES}
 
 fmt:
-	@gofmt -s -w ${GOFILES}
+	@gofmt -s -w $(GOFILES)
 
 fmt-check:
-	@diff=?(gofmt -s -d $(GOFILES)); \
-	if [ -n "$$diff" ]; then \
+	@ape=$(gofmt -s -d $(GOFILES)); \
+	if [ -n "$$ape" ]; then \
 		echo "Please run 'make fmt' and commit the result:"; \
-		echo "$${diff}"; \
+		echo "$${ape}"; \
 		exit 1; \
 	fi;
 
