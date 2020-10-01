@@ -1,0 +1,9 @@
+version: 0.2
+#  If run-as is not specified, then all commands run as the root user.
+phases:
+  build:
+    - echo Building...
+    - make
+artifacts:
+  files: 
+    - '**/*'
